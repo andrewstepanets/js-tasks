@@ -1,1 +1,3 @@
-# mod5-solution
+# JS tasks
+
+This repo consist solution of regulary math tasks
