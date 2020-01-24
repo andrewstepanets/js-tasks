@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Debugging</title>
+  </head>
+  <body>
+    <script>
+      const people = [
+        { name: 'Andrew', cool: true, country: 'Canada' },
+        { name: 'Tanya', cool: true, country: 'USA' },
+        { name: 'Ivanka', cool: true, country: 'Australia' }
+      ];
+      //   people.forEach((person, index) => {
+      //     if (person.name === 'Andrew') {
+      //       console.warn('Its Andrew');
+      //     }
+      //   });
+      //
+
+      people.forEach((person, index) => {
+        console.groupCollapsed(`${person.name}`);
+        console.log(person.country);
+        console.log(person.cool);
+        console.log('!DONE');
+        console.groupEnd(`${person.name}`);
+      });
+      console.table(people);
+
+      function doALOTofStuff() {
+        console.group('Doing some stuff');
+        console.log('Hey Im one');
+        console.warn('Watch out!');
+        console.error('Hey!');
+        console.groupEnd('Doing some stuff');
+      }
+      // How many times running function
+      function doctorize(name) {
+        console.count(`Running Doctorize for name ${name}`);
+        return `Dr. ${name}`;
+      }
+
+      // Callstack, Stack Trace
+      function greet(name) {
+        doesntExist(); // This is the cause of errror
+        return `Hello ${name}`;
+      }
+      function go() {
+        const name = doctorize(greet('Andrew'));
+        console.log(name);
+      }
+      function bootstrap() {
+        console.log('Starting the app!');
+        go();
+      }
+
+      // use debugger
+      people.forEach((person, index) => {
+        // debugger;
+        console.log(person.name);
+      });
+      // Network Requests
+    </script>
+  </body>
+</html>
