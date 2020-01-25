@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Closures</title>
+  </head>
+  <body>
+    <script>
+      function outer() {
+        const outerVar = 'Hey I am a outer Var!';
+        function inner() {
+          const innerVar = 'Hey I am  a inner Var';
+          console.log(innerVar);
+          console.log(outerVar);
+        }
+        return inner;
+      }
+      const innerFn = outer();
+      innerFn();
+
+      // Seconf example
+
+      function creatGreeting(greeting = '') {
+        const myGreet = greeting.toUpperCase();
+        return function(name) {
+          return `${myGreet} ${name}`;
+        };
+      }
+      const sayHello = creatGreeting('hello');
+      const sayHi = creatGreeting('hey');
+
+      console.log(sayHello('Andrew'));
+      console.log(sayHello('Tanya'));
+      console.log(sayHi('Ivanka'));
+
+      function createGame(gameName) {
+        let score = 0;
+        return function win() {
+          score++;
+          return `Your name ${gameName} score is ${score}`;
+        };
+      }
+      const hockeyGame = createGame('Hockey');
+      const soccerGame = createGame('Soccer');
+    </script>
+  </body>
+</html>
