@@ -28,9 +28,30 @@
         <p class="pizza">This is How many pizza I ate</p>
       </article>
     </div>
+    <style>
+      h2 span {
+        display: none;
+      }
+      img {
+        transition: all 0.5s;
+      }
+      .round {
+        border-radius: 50%;
+        transform: rotate(1turn) scale(2);
+        box-shadow: 0 0 10px black;
+      }
+    </style>
     <script>
       const pic = document.querySelector('.nice');
+      pic.classList.add('open');
+      pic.classList.remove('cool');
+
       console.log(pic.classList);
+
+      function toggleRound() {
+        pic.classList.toggle('round');
+      }
+      pic.addEventListener('click', toggleRound);
     </script>
   </body>
 </html>
