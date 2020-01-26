@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>DOM Selecting</title>
+  </head>
+  <body>
+    <div class="items">
+      <div class="item">
+        <img src="https://picsum.photos/200" alt="" />
+        <p>Hi I'm an item</p>
+      </div>
+      <div class="item item2">
+        <img src="https://picsum.photos/200" alt="" />
+        <h2 id="andy">
+          I'm heading
+          <span>
+            I'm hidden!
+          </span>
+        </h2>
+        <p>Hi I'm an item</p>
+      </div>
+      <article class="item">
+        <h2>Hi I'm an article</h2>
+        <p class="pizza">This is How many pizza I ate</p>
+      </article>
+    </div>
+    <style>
+      h2 span {
+        display: none;
+      }
+    </style>
+    <script>
+      //   const p = document.querySelector('p');
+      //   const img = document.querySelectorAll('.ite, img');
+      //   const item2 = document.querySelector('.item2');
+      //   const item2img = item2.querySelector('img');
+      //   // old
+      //   const andy = document.getElementById('andy');
+      //   console.log(item2img);
+      //   console.log(andy);
+
+      const heading = document.querySelector('h2');
+      console.log(heading);
+      //   console.dir(heading);
+
+      console.log(heading.textContent);
+      console.log(heading.innerText);
+      console.log(heading.innerHTML);
+      console.log(heading.outerHTML);
+
+      // setter;
+      heading.textContent = "Hi I'm a new heading!";
+      // getter;
+      console.log(heading.textContent);
+      console.log(heading.innerText);
+
+      const pizzaList = document.querySelector('.pizza');
+      console.log(pizzaList.textContent);
+
+      //   pizzaList.textContent = `${pizzaList.textContent} and another pizza`;
+      pizzaList.insertAdjacentText('afterbegin', 'another Pizza');
+      pizzaList.insertAdjacentText('beforeend', 'another Pizza');
+    </script>
+  </body>
+</html>
