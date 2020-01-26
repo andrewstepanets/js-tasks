@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Built in and custom Data Attribute</title>
+  </head>
+  <body>
+    <img class="nice cool" src="https://picsum.photos/600" alt="" />
+    <div class="items">
+      <div class="item">
+        <img
+          class="custom"
+          data-name="andy"
+          data-last="steps"
+          src="https://picsum.photos/200"
+          alt=""
+        />
+        <img data-name="tanya" src="https://picsum.photos/200" alt="" />
+        <img data-name="lux" src="https://picsum.photos/200" alt="" />
+        <p>Hi I'm an item</p>
+      </div>
+      <div class="item item2">
+        <img src="https://picsum.photos/200" alt="" />
+        <h2 id="andy">
+          I'm heading
+          <span>
+            I'm hidden!
+          </span>
+        </h2>
+        <p>Hi I'm an item</p>
+      </div>
+      <article class="item">
+        <h2>Hi I'm an article</h2>
+        <p class="pizza">This is How many pizza I ate</p>
+      </article>
+    </div>
+    <style>
+      h2 span {
+        display: none;
+      }
+
+      img {
+        transition: all 0.5s;
+      }
+
+      .round {
+        border-radius: 50%;
+        transform: rotate(1turn) scale(2);
+        box-shadow: 0 0 10px black;
+      }
+    </style>
+    <script>
+      const pic = document.querySelector('.nice');
+      pic.classList.add('open');
+
+      pic.alt = 'Photo of a nature';
+      console.log(pic.alt);
+      console.log(pic.width);
+
+      console.log(pic.naturalWidth);
+
+      // solving problem with zero width. Set addEventListener
+      // set window.addEvenntListener or pic.addEventListener
+
+      pic.addEventListener('load', function() {
+        console.log(pic.width);
+      });
+
+      //   pic.setAttribute('alt', 'REALLY NICE PIC');
+      //   console.log(pic.getAttribute('alt'));
+      // SET Data Attribute
+
+      const custom = document.querySelector('.custom');
+      console.log(custom.dataset);
+
+      custom.addEventListener('click', function() {
+        alert(`Welcome ${custom.dataset.name} ${custom.dataset.last}`);
+      });
+    </script>
+  </body>
+</html>
