@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Creating elements from Strings</title>
+  </head>
+  <body>
+    <div class="items">
+      <div class="item">
+        <img src="https://picsum.photos/200" alt="" />
+        <p>Hi I'm an item</p>
+      </div>
+      <div class="item item2">
+        <img src="https://picsum.photos/200" alt="" />
+        <h2 id="andy">
+          I'm heading
+          <span>
+            I'm hidden!
+          </span>
+        </h2>
+        <p>Hi I'm an item</p>
+      </div>
+      <article class="item">
+        <h2>Hi I'm an article</h2>
+        <p class="pizza">This is How many pizza I ate</p>
+      </article>
+    </div>
+
+    <style>
+      .rounded {
+        border-radius: 50%;
+      }
+    </style>
+    <script>
+      const item = document.querySelector('.item');
+      const width = 500;
+      const src = `https://picsum.photos/${width}`;
+      const desc = `Cute photo`;
+
+      const myHTML = `
+      <div class="wrapper">
+        <h2>Cute ${desc}</h2>
+        <img src="${src}" alt="${desc}" >
+        </div>
+        `;
+
+      // one aproach creating elements
+      // item.innerHTML = myHTML;
+
+      // console.log(typeof myHTML);
+      // const itemImage = document.querySelector('.wrapper img');
+      // console.log(itemImage);
+      // itemImage.classList.add('rounded');
+      // turn a string into a DOM element, second aproach
+
+      const myFragment = document
+        .createRange()
+        .createContextualFragment(myHTML);
+      console.log(myFragment.querySelector('img'));
+
+      console.log(myFragment);
+
+      document.body.appendChild(myFragment);
+    </script>
+  </body>
+</html>
