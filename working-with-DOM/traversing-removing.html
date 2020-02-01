@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Creating elements from Strings</title>
+  </head>
+  <body>
+    <p class="andy">
+      I am Andrew and I am <em>love</em> BBQ and
+      <strong>Make Websites!!</strong>Make
+    </p>
+    <img class="nice cool" src="https://picsum.photos/500" alt="" />
+    <div class="items">
+      <div class="item">
+        <img src="https://picsum.photos/200" alt="" />
+        <p>Hi I'm an item</p>
+      </div>
+      <div class="item item2">
+        <img src="https://picsum.photos/200" alt="" />
+        <h2 id="andy">
+          I'm heading
+          <span>
+            I'm hidden!
+          </span>
+        </h2>
+        <p>Hi I'm an item</p>
+      </div>
+      <article class="item">
+        <h2>Hi I'm an article</h2>
+        <p class="pizza">This is How many pizza I ate</p>
+      </article>
+    </div>
+
+    <style>
+      .rounded {
+        border-radius: 50%;
+      }
+    </style>
+    <script>
+      const andy = document.querySelector('.andy');
+
+      // Traversing
+      // console.log(andy.childNodes);
+      // console.log(andy.children);
+      // console.log(andy.firstElementChild);
+      // console.log(andy.lastElementChild);
+      // console.log(andy.previousElementSibling);
+      // console.log(andy.nextElementSibling);
+      // console.log(andy.parentElement);
+
+      // Removing elements
+
+      const p = document.createElement('p');
+      p.textContent = 'I will be removed';
+      document.body.appendChild(p);
+
+      p.remove();
+
+      console.log(p); // because it stay in JS memory!
+    </script>
+  </body>
+</html>
