@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Form Events</title>
+    <style>
+      body {
+        background: cornflowerblue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .wrapper {
+        background: white;
+        border-radius: 10px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 300px;
+        height: 300px;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <a class="andy" href="http://andrewstepanets.github.io/">Andrew</a>
+      <form name="signup" action="">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" value="Andrew" />
+        <label for="email">e-mail</label>
+        <input type="email" name="email" id="email" value="ovrass@gmail.com" />
+        <input required type="checkbox" name="agree" id="agree" />
+        <label for="agree">I agree with terms and conditions</label>
+        <hr />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <div role="button" tabindex="0">Sample</div>
+    <img
+      class="photo"
+      tabindex="0"
+      src="https://picsum.photos/200"
+      alt="Nice"
+    />
+    <script>
+      const photo = document.querySelector('.photo');
+      function handlePhotoClick(event) {
+        if (event.type === 'click' || event.key === 'Enter') {
+          console.log('You clicked the photo!');
+        }
+      }
+      photo.addEventListener('click', handlePhotoClick);
+      photo.addEventListener('keyup', handlePhotoClick);
+    </script>
+  </body>
+</html>
