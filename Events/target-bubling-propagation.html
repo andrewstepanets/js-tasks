@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Events</title>
+  </head>
+
+  <body>
+    <button class="butts">Click Me</button>
+    <button class="cool">Click me also</button>
+
+    <h2>Buy Buttons!</h2>
+    <button data-price="100" class="buy">Buy Item <span>1</span></button>
+    <button data-price="200" class="buy">Buy Item <span>2</span></button>
+    <button data-price="300" class="buy">Buy Item <span>3</span></button>
+    <button data-price="400" class="buy">Buy Item <span>4</span></button>
+    <button data-price="500" class="buy">Buy Item <span>5</span></button>
+    <button data-price="600" class="buy">Buy Item <span>6</span></button>
+    <button data-price="700" class="buy">Buy Item <span>7</span></button>
+    <button data-price="800" class="buy">Buy Item <span>8</span></button>
+    <button data-price="900" class="buy">Buy Item <span>9</span></button>
+    <button data-price="1000" class="buy">Buy Item <span>10</span></button>
+    <img class="photo" src="https://picsum.photos/200" alt="Nice" />
+    <script>
+      const buyButtons = document.querySelectorAll('button.buy');
+      function handleBuyButtonClick(event) {
+        const button = event.target;
+        // difference between target and currentTarget
+        console.log('You clicked a button!');
+
+        console.log(event.currentTarget);
+        console.log(event.target);
+        console.log(event.target === event.currentTarget);
+        // stop this effect from bubbling up
+        // event.stopPropagation();
+
+        // console.log(button.textContent);
+        // console.log('You are buying it!');
+        // console.log(typeof parseFloat(event.target.dataset.price)); // we use parseFloat() to modified string to number
+      }
+      buyButtons.forEach(function(buyButton) {
+        buyButton.addEventListener('click', handleBuyButtonClick);
+      });
+
+      window.addEventListener(
+        'click',
+        function(event) {
+          console.log('You clicked the window');
+          console.log(event.target);
+          console.log(event.type);
+          console.log(event.bubbles);
+
+          //   event.stopPropagation();
+        },
+        { capture: true }
+      );
+
+      const photoEl = document.querySelector('.photo');
+      photoEl.addEventListener('mouseenter', function(e) {
+        console.log(e.currentTarget);
+        console.log(this);
+      });
+    </script>
+  </body>
+</html>
