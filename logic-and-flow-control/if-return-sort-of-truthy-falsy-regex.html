@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Flow Control, If statement, Regex</title>
+  </head>
+  <body>
+    <h2>Truthy Values</h2>
+    <p>1</p>
+    <p>-10</p>
+    <p>full string</p>
+    <p>a string of "0"</p>
+    <p>Empty Array</p>
+    <p>Empty Object</p>
+    <h2>Falsy Values</h2>
+    <p>0</p>
+    <p>undefined</p>
+    <p>Variable set to Null</p>
+    <p>a Variable set to `"hello" - 10` NaN</p>
+    <p>Empty string</p>
+    <script>
+      function slugify(sentence, lowercase) {
+        const slug = sentence.replace(/\s/g, '-');
+        if (lowercase) {
+          return slug.toLowerCase();
+        } // else
+        return slug;
+      }
+
+      const name = 'andrew';
+      const last = 'steps';
+
+      if (name === 'tanya' || (name === 'andrew' && last === 'steps')) {
+        console.log('Good name');
+      }
+      const isAwesomeName = 'andrews'.includes(name);
+
+      if (isAwesomeName) {
+        console.log("It's a supername");
+      }
+
+      // * 0 - falsy
+
+      const score = [];
+      if (score) {
+        console.log(`Score is ${score}`);
+      } else {
+        console.log('No score yet');
+      }
+
+      // truthy or falsy values
+
+      const values = [
+        [],
+        {},
+        -10,
+        1,
+        0,
+        '',
+        'full string',
+        ' ',
+        undefined,
+        NaN,
+        null
+      ];
+      console.group('truthy or falsy values');
+      values.forEach(value => {
+        if (value) {
+          console.log(value, ' is truthy');
+        } else {
+          console.log(value, 'is falsy');
+        }
+      });
+      console.groupEnd();
+    </script>
+  </body>
+</html>
