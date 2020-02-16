@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Objects</title>
+  </head>
+  <body>
+    <input type="text" name="first" value="Andrew" />
+    <script src="https://unpkg.com/lodash@4.17.15/lodash.js"></script>
+    <script>
+      const name1 = 'andy';
+      let name2 = 'andy';
+
+      name2 = name1;
+      name2 = 'Andrew';
+      const age = 100;
+      const person = {
+        name: 'Andrew',
+        propertyToCheck: 'NEVER',
+        age,
+        'cool-dude': true,
+        'really cool': false,
+        '777': true,
+        dog: 'white',
+        clothing: {
+          shirts: 10,
+          pants: 2
+        },
+        sayHello(greeting = 'Hey') {
+          return `${greeting} ${this.name}`;
+        },
+        sneeze: () => {
+          console.log('AHHHH CHOOO');
+        }
+      };
+      person.job = 'Web developer';
+      person.age = 50;
+
+      //   const personFroze = Object.freeze(person);
+      //   personFroze.name = 'Frozen Andrew'; // didn't work cause not immutable
+      //   console.log(personFroze);
+
+      //   const propertyToCheck = prompt('What do you want to check?');
+      //   console.log(propertyToCheck);
+      //   console.log(person[propertyToCheck]);
+      //   console.log(person.propertyToCheck);
+      console.log(person['cool-dude']); // call srting key in Object
+
+      const nameInput = document.querySelector('[name="first"]');
+      const name = nameInput ? nameInput.value : '';
+      console.log(name);
+      console.log(delete person.job);
+      console.log(person.sayHello());
+      console.log(person.sneeze());
+
+      // compare two objects
+
+      const person1 = {
+        first: 'Andy',
+        last: 'Steps',
+        clothing: {
+          shirts: 10,
+          pants: 2
+        }
+      };
+      const person2 = {
+        first: 'Andy',
+        last: 'Steps'
+      };
+      console.log(person1 === person2);
+
+      //   const person3 = person1;
+      //   person3.first = 'Tanya';
+
+      //   console.log(person3.first);
+      //   console.log(person1.first);
+
+      // to copy object you need
+
+      //   const person3 = { ...person1 }; // copy objects this work if the object isn't deep
+      // using Lodash
+      const person3 = _.cloneDeep(person1);
+      person3.first = 'Tanya';
+      console.log(person3.first);
+      console.log(person1.first);
+      person3.clothing.shirts = 100;
+      console.log(person3.clothing.shirts);
+      console.log(person1.clothing.shirts);
+      // if you want to do a deep clone of an object
+      // you should use the library like a Lodash
+
+      const meatInventory = {
+        bacon: 2,
+        sausage: 3,
+        oysters: 10
+      };
+      const veggieInventory = {
+        lettuce: 5,
+        tomatoes: 3,
+        oysters: 5
+      };
+
+      // Merge this objects
+
+      const inventory = { ...meatInventory, ...veggieInventory };
+      console.log(inventory);
+
+      function doStuff(data) {
+        data = 'something else';
+        console.log(data);
+      }
+      function doStuff2(data) {
+        data.tomatoes = 10000000000;
+        console.log(data);
+      }
+      doStuff(name1);
+      doStuff2(inventory);
+    </script>
+  </body>
+</html>
