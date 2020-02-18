@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Working with maps</title>
+  </head>
+  <body>
+    <ul class="prizes"></ul>
+    <script>
+      const person1 = {
+        name: 'andrew',
+        age: 200
+      };
+      const myMap = new Map();
+      // .set();
+      myMap.set('name', 'andrew');
+      myMap.set(100, 'This is a number');
+      myMap.set(person1, 'Really Cool');
+      console.log(myMap);
+      console.log(myMap.get(person1));
+      myMap.delete('name');
+      console.log(myMap);
+
+      // convert object to string
+      console.log(JSON.stringify(person1));
+      // convert string to an object
+      console.log(JSON.parse(JSON.stringify(person1)));
+
+      // JSON dosn't work with map, if you want send map to JSON you need convert map to object
+      // Wes uses Objects more frequently
+      Object.fromEntries(myMap);
+      console.log(Object.fromEntries(myMap));
+
+      const score = 200;
+      const prizes = new Map();
+      prizes.set(100, 'Bear');
+      prizes.set(200, 'Duck');
+      prizes.set(300, 'Cat');
+      console.log(`You win a ${prizes.get(score)}`);
+      console.log(myMap.size);
+
+      // select that ul
+      const ul = document.querySelector('.prizes');
+      // using this loop display only values
+      //   prizes.forEach(entry => {
+      //     console.log(entry);
+      //   });
+      // if you want to display key + value. It is need to use this loop
+
+      for (const [points, prize] of prizes) {
+        // console.log(points, prize);
+        const li = `<li>${points} - ${prize}</li>`;
+        ul.insertAdjacentHTML('beforeend', li);
+      }
+    </script>
+  </body>
+</html>
