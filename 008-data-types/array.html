@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Working with arrays</title>
+  </head>
+  <body>
+    <script>
+      const names = ['andrew', 'tanya', 'white']; // const names = new Array();
+      console.log(names.length);
+      console.log(names[names.length - 1]);
+
+      names.push('mona'); // add element in the end of array
+      console.log(names);
+      const names2 = [...names, 'mona'];
+      console.log(names2);
+      // if you need to add element in the start of array
+      names.unshift('mona');
+      console.log(names);
+      const names3 = ['mona', ...names];
+      console.log(names3);
+
+      // if you want add element into middle of array
+
+      const bikes = ['bianchi', 'miele', 'panasonic', 'miyata'];
+
+      const newBikes = [...bikes.slice(0, 2), 'benotto', ...bikes.slice(2)];
+
+      console.log(newBikes);
+      // Remove elements from array
+
+      const newBikes2 = [...newBikes.slice(0, 3), ...newBikes.slice(4)];
+      console.log(newBikes2);
+
+      /* eslint-disable */
+
+      let comments = [
+        { text: 'Cool Beans', id: 123 },
+        { text: 'Love this', id: 133 },
+        { text: 'Neato', id: 233 },
+        { text: 'Good bikes', id: 333 },
+        { text: 'So good', id: 433 }
+      ];
+
+      function deleteComment(id, comments) {
+        // first find the index of the item in the array
+        const commentIndex = comments.findIndex(comment => comment.id === id);
+        // make a new array without that item in it
+        return [
+          ...comments.slice(0, commentIndex),
+          ...comments.slice(commentIndex + 1)
+        ];
+        // return our new array
+      }
+
+      console.log(deleteComment(233, comments));
+
+      // find index in array
+
+      const tanyaIndex = names.findIndex(name => name === 'tanya');
+      console.log(tanyaIndex);
+
+      // Wes think that this best way
+      const newNamesWithOutTanya = [
+        // get everything up to tanya index
+        ...names.slice(0, tanyaIndex),
+        // everything after Tanya index
+        ...names.slice(tanyaIndex + 1)
+      ];
+
+      // or you can use method flat()
+      //   const newNamesWithOutTanya = [
+      //     // get everything up to tanya index
+      //     names.slice(0, tanyaIndex),
+      //     // everything after Tanya index
+      //     names.slice(tanyaIndex + 1)
+      //   ].flat();
+      console.log(newNamesWithOutTanya);
+
+      // It's just my example to put element into middle of existing array
+      //   const bikes2 = [
+      //     'bianchi',
+      //     'miele',
+      //     'panasonic',
+      //     'miyata',
+      //     'bianchi',
+      //     'miele',
+      //     'panasonic',
+      //     'miyata'
+      //   ];
+      //   const newBikes2 = [
+      //     ...bikes2.slice(0, Math.floor(bikes2.length / 2)),
+      //     'newbike',
+      //     ...bikes2.slice(Math.floor(bikes2.length / 2))
+      //   ];
+      //   console.log(newBikes2);
+
+      //   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+      //   numbers.splice(3, 2);
+      //   console.log(numbers);
+
+      //   // Mutation Method
+      //   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      //   console.log(numbers);
+      //   // anytime you want to use a mutation method andNOT
+      //   // mutate the original array
+      //   // we need to take a copy of the array
+      //   const numberReversed = [...numbers].reverse();
+
+      //   console.log(numberReversed);
+
+      //   //   const numbersBackwards = numbers.reverse();
+      //   //   console.log(numbersBackwards);
+      //   // the original array has also been reverse
+      //   console.log(numbers);
+
+      //   // Immutable
+      //   const pizzaSlice = numbers.slice(2, 4);
+      //   console.log(pizzaSlice);
+      //   console.log(numbers);
+    </script>
+  </body>
+</html>
