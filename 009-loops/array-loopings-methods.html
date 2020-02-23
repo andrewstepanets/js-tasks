@@ -245,6 +245,46 @@
       });
 
       console.table(cleanPeople);
+
+      // const over40 = cleanPeople.filter(function(person) {
+      //   if (person.age > 40) {
+      //     return true;
+      //   } else {
+      //     return false;
+      //   }
+      // });
+      // short note this function
+      const over40 = cleanPeople.filter(person => person.age > 40);
+
+      console.table(over40);
+
+      if (over40.length) {
+        console.log('There are some people over 40');
+      }
+
+      // const student = students.find(stud => stud.id === '565a');
+      // const student2 = students.filter(stud => stud.id === '565a');
+      // console.log(student);
+      // // difference with find and filter
+      // console.log(student2);
+
+      // function findById(id) {
+      //   return function isStudent(student) {
+      //     return student.id === id;
+      //   };
+      // }
+      // const student = students.find(findById('565a'));
+      // console.log(student);
+
+      function findByProp(prop, propWeAreLookingFor) {
+        return function isStudent(student) {
+          return student[prop] === propWeAreLookingFor;
+        };
+      }
+      const student = students.find(findByProp('id', '565a'));
+      const student2 = students.find(findByProp('first_name', 'Micki'));
+      console.log(student);
+      console.log(student2);
     </script>
   </body>
 </html>
