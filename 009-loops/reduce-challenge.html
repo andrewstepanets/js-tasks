@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reduce challenge</title>
+  </head>
+  <body>
+    <script>
+      // Grab all the text from a web page
+      // Count how many times each letter and number occurs
+
+      const text = ` 
+      
+
+Take the MDN Survey and help us understand what browser vendors can do to make your life better: https://qsurvey.mozilla.com/s3/MDN-browser-compat-survey
+
+    Перейти до основного вмісту
+    Оберіть мову
+    Перейти до пошуку
+
+Пошук на MDN
+Увійти
+Array.prototype.reduce()
+
+    Веб-технології для розробниківJavaScriptДовідник з JavaScriptСтандартні вбудовані об'єктиArrayArray.prototype.reduce()
+
+На цій сторінці
+
+    Синтакс
+    Опис
+    Приклади
+    Polyfill
+    Specifications
+    Browser compatibility
+    See also
+
+Переклад цієї статті ще не завершено. Будь ласка, допоможіть перекласти цю статтю з англійської мови
+
+Метод reduce() виконує функцію reducer (функцію вказуєте ви) для кожного елемента масиву та повертає єдине значення.
+
+Функія reducer отримує чотири параметри:
+
+    Accumulator (acc) - Акумулятор
+    Current Value (cur) - Поточне значення
+    Current Index (idx) - Поточний індекс
+    Source Array (src) - Вхідний масив
+
+Функція reducer повертає значення та присовює його акумулятору. Значення аккумулятора запам'ятовується через усі ітерації і повертається наприкінці як єдиний результат.
+Синтакс
+
+arr.reduce(callback[, initialValue])
+
+Параметри
+
+callback
+    Фунція, що виконується з кожним елементом масиву (приймає 4 аргументи):
+
+    accumulator
+        Акумулює значення, які повертає callback. В акумуляторі зберігається попереднє значення результату виклику callback функції або initialValue, якщо воно було надано (дивись нижче).
+    currentValue
+        Поточний елемент, над яким виконується дія.
+    currentIndexOptional
+        Індекс поточного елемента, над яким виконується дія. Починається із 0 індексу, якщо, було надано значення initialValue, інакше з 1 .
+    arrayOptional
+        Масив, для якого було викликано reduce().
+
+initialValueOptional
+    Значення, що буде використане як перший аргумент під час виклику callback функції. Якщо це значення не було задане, буде використано перший елемент масиву. Виклик reduce() на порожньому масиві без вказання initial value призведе до помилки.
+
+Значення, яке буде повернене
+
+Значення, що зберігається в акумуляторі після останньої ітерації.
+Опис
+
+reduce() виконує callback функцію один раз для кожного елемента масиву за виключенням дірок (порожніх елементів). Функція отримує чотири аргументи:
+
+    accumulator
+    currentValue
+    currentIndex
+    array
+
+При першому виклику callback функції accumulator і currentValue можуть мати одне із двох значень. Якщо значення initialValue задане при виклику reduce(), значення accumulator дорівнюватиме значенню initialValue, а currentValue дорівнюватиме першому елементу масиву. Якщо значення initialValue не задане, accumulator буде рівним першому елементу масиву, а currentValue -- другому.
+
+Примітка: Якщо значення initialValue не задане, reduce() виконуватиме callback функцію починаючи з індексу 1, пропустивши перший індекс. Якщо initialValue задане, виконання почнеться із 0-го індексу.
+
+Якщо масив порожній і значення initialValue не задане, буде створено помилку TypeError. Якщо масив складається тільки з одного елемента (незалежно від його позиції) і значення initialValue не задане, або якщо значення initialValue задане, але масив порожній, буде повернуто єдине наявне значення, а функція callback не буде викликана.
+
+Зазвичай безпечніше вказувати початкове значення (initialValue), адже без нього можливі три різні результати (див. приклад).
+
+var maxCallback = ( acc, cur ) => Math.max( acc.x, cur.x );
+var maxCallback2 = ( max, cur ) => Math.max( max, cur );
+
+// reduce() без initialValue
+[ { x: 22 }, { x: 42 } ].reduce( maxCallback ); // 42
+[ { x: 22 }            ].reduce( maxCallback ); // { x: 22 }
+[                      ].reduce( maxCallback ); // TypeError
+
+// map/reduce; краще рішення, працюватиме також для порожніх чи великих масивів
+[ { x: 22 }, { x: 42 } ].map( el => el.x )
+                        .reduce( maxCallback2, -Infinity );
+
+Як працює reduce()
+
+Нехай відбувся наступний виклик reduce():
+
+[0, 1, 2, 3, 4].reduce(function(accumulator, currentValue, currentIndex, array) {
+  return accumulator + currentValue;
+});
+
+callback буде викликано чотири рази із наступними аргументами та значеннями, поверненими при кожному виклику:
+callback 	accumulator 	currentValue 	currentIndex 	array 	повернене
+значення
+перший виклик 	0 	1 	1 	[0, 1, 2, 3, 4] 	1
+другий виклик 	1 	2 	2 	[0, 1, 2, 3, 4] 	3
+третій виклик 	3 	3 	3 	[0, 1, 2, 3, 4] 	6
+четвертий виклик 	6 	4 	4 	[0, 1, 2, 3, 4] 	10
+
+Значення, повернене reduce() буде значенням, отриманим при останньому виклику callback (10).
+
+The value returned by reduce() would be that of the last callback invocation (10).
+
+Можна також задати Arrow Function замість повної функції. Наступний код згенерує такий самий результат, як код у попередньому блоці.
+
+[0, 1, 2, 3, 4].reduce( (accumulator, currentValue, currentIndex, array) => accumulator + currentValue );
+
+Якщо початкове значення (initialValue) задати як другий аргумент функції reduce(), результат буде наступним:
+
+[0, 1, 2, 3, 4].reduce((accumulator, currentValue, currentIndex, array) => {
+    return accumulator + currentValue;
+}, 10);
+
+callback 	accumulator 	currentValue 	currentIndex 	array 	повернене значення
+перший виклик 	10 	0 	0 	[0, 1, 2, 3, 4] 	10
+другий виклик 	10 	1 	1 	[0, 1, 2, 3, 4] 	11
+третій виклик 	11 	2 	2 	[0, 1, 2, 3, 4] 	13
+четвертий виклик 	13 	3 	3 	[0, 1, 2, 3, 4] 	16
+
+п'ятий виклик
+	16 	4 	4 	[0, 1, 2, 3, 4] 	20
+
+Значення, повернене функцією reduce() у цьому випадку дорівнюватиме 20.
+Приклади
+Сума усіх елементів масиву
+
+var sum = [0, 1, 2, 3].reduce(function (accumulator, currentValue) {
+  return accumulator + currentValue;
+}, 0);
+// sum is 6
+
+Приклад вище, реалізований за допомогою arrow function:
+
+var total = [ 0, 1, 2, 3 ].reduce(
+  ( accumulator, currentValue ) => accumulator + currentValue,
+  0
+);
+
+Сума значень у масиві об'єктів
+
+Щоб підсумувати значення, що знаходяться у масиві об'єктів, Ви повинні вказати початкове значення для того, щоб для кожного із елементів була викликана Ваша функція.
+
+var initialValue = 0;
+var sum = [{x: 1}, {x:2}, {x:3}].reduce(function (accumulator, currentValue) {
+    return accumulator + currentValue.x;
+},initialValue)
+
+console.log(sum) // logs 6
+
+Також за допомогою arrow function: 
+
+var initialValue = 0;
+var sum = [{x: 1}, {x:2}, {x:3}].reduce(
+    (accumulator, currentValue) => accumulator + currentValue.x
+    ,initialValue
+);
+
+console.log(sum) // logs 6
+
+Сплюснути (flatten) масив масивів
+
+Сплющення (flattening) - процес, у результаті якого із масиву масивів отримуємо один масив, що містить елементи усіх вкладених масивів.
+
+var flattened = [[0, 1], [2, 3], [4, 5]].reduce(
+  function(accumulator, currentValue) {
+    return accumulator.concat(currentValue);
+  },
+  []
+);
+// flattened is [0, 1, 2, 3, 4, 5]
+
+Також за допомогою arrow function:
+
+var flattened = [[0, 1], [2, 3], [4, 5]].reduce(
+  ( accumulator, currentValue ) => accumulator.concat(currentValue),
+  []
+);
+
+Підрахунок кількості однакових значень у об'єкті
+
+var names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
+
+var countedNames = names.reduce(function (allNames, name) { 
+  if (name in allNames) {
+    allNames[name]++;
+  }
+  else {
+    allNames[name] = 1;
+  }
+  return allNames;
+}, {});
+// countedNames is:
+// { 'Alice': 2, 'Bob': 1, 'Tiff': 1, 'Bruce': 1 }
+
+Групування об'єктів за властивістю (property)
+
+var people = [
+  { name: 'Alice', age: 21 },
+  { name: 'Max', age: 20 },
+  { name: 'Jane', age: 20 }
+];
+
+function groupBy(objectArray, property) {
+  return objectArray.reduce(function (acc, obj) {
+    var key = obj[property];
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+    acc[key].push(obj);
+    return acc;
+  }, {});
+}
+
+var groupedPeople = groupBy(people, 'age');
+// groupedPeople is:
+// { 
+//   20: [
+//     { name: 'Max', age: 20 }, 
+//     { name: 'Jane', age: 20 }
+//   ], 
+//   21: [{ name: 'Alice', age: 21 }] 
+// }
+
+Bonding arrays contained in an array of objects using the spread operator and initialValue
+
+// friends - an array of objects 
+// where object field "books" - list of favorite books 
+var friends = [{
+  name: 'Anna',
+  books: ['Bible', 'Harry Potter'],
+  age: 21
+}, {
+  name: 'Bob',
+  books: ['War and peace', 'Romeo and Juliet'],
+  age: 26
+}, {
+  name: 'Alice',
+  books: ['The Lord of the Rings', 'The Shining'],
+  age: 18
+}];
+
+// allbooks - list which will contain all friends' books +  
+// additional list contained in initialValue
+var allbooks = friends.reduce(function(accumulator, currentValue) {
+  return [...accumulator, ...currentValue.books];
+}, ['Alphabet']);
+
+// allbooks = [
+//   'Alphabet', 'Bible', 'Harry Potter', 'War and peace', 
+//   'Romeo and Juliet', 'The Lord of the Rings',
+//   'The Shining'
+// ]
+
+Видалення повторюваних значень у масиві
+
+let arr = [1, 2, 1, 2, 3, 5, 4, 5, 3, 4, 4, 4, 4];
+let result = arr.sort().reduce((accumulator, current) => {
+    const length = accumulator.length
+    if (length === 0 || accumulator[length - 1] !== current) {
+        accumulator.push(current);
+    }
+    return accumulator;
+}, []);
+console.log(result); //[1,2,3,4,5]
+
+Запуск Promises у послідовності
+
+/**
+ * Runs promises from array of functions that can return promises
+ * in chained manner
+ *
+ * @param {array} arr - promise arr
+ * @return {Object} promise object
+ */
+function runPromiseInSequence(arr, input) {
+  return arr.reduce(
+    (promiseChain, currentFunction) => promiseChain.then(currentFunction),
+    Promise.resolve(input)
+  );
+}
+
+// promise function 1
+function p1(a) {
+  return new Promise((resolve, reject) => {
+    resolve(a * 5);
+  });
+}
+
+// promise function 2
+function p2(a) {
+  return new Promise((resolve, reject) => {
+    resolve(a * 2);
+  });
+}
+
+// function 3  - will be wrapped in a resolved promise by .then()
+function f3(a) {
+ return a * 3;
+}
+
+// promise function 4
+function p4(a) {
+  return new Promise((resolve, reject) => {
+    resolve(a * 4);
+  });
+}
+
+const promiseArr = [p1, p2, f3, p4];
+runPromiseInSequence(promiseArr, 10)
+  .then(console.log);   // 1200
+
+Function composition enabling piping
+
+// Building-blocks to use for composition
+const double = x => x + x;
+const triple = x => 3 * x;
+const quadruple = x => 4 * x;
+
+// Function composition enabling pipe functionality
+const pipe = (...functions) => input => functions.reduce(
+    (acc, fn) => fn(acc),
+    input
+);
+
+// Composed functions for multiplication of specific values
+const multiply6 = pipe(double, triple);
+const multiply9 = pipe(triple, triple);
+const multiply16 = pipe(quadruple, quadruple);
+const multiply24 = pipe(double, triple, quadruple);
+
+// Usage
+multiply6(6); // 36
+multiply9(9); // 81
+multiply16(16); // 256
+multiply24(10); // 240
+
+write map using reduce
+
+if (!Array.prototype.mapUsingReduce) {
+  Array.prototype.mapUsingReduce = function(callback, thisArg) {
+    return this.reduce(function(mappedArray, currentValue, index, array) {
+      mappedArray[index] = callback.call(thisArg, currentValue, index, array);
+      return mappedArray;
+    }, []);
+  };
+}
+
+[1, 2, , 3].mapUsingReduce(
+  (currentValue, index, array) => currentValue + index + array.length
+); // [5, 7, , 10]
+
+Polyfill
+
+// Production steps of ECMA-262, Edition 5, 15.4.4.21
+// Reference: http://es5.github.io/#x15.4.4.21
+// https://tc39.github.io/ecma262/#sec-array.prototype.reduce
+if (!Array.prototype.reduce) {
+  Object.defineProperty(Array.prototype, 'reduce', {
+    value: function(callback /*, initialValue*/) {
+      if (this === null) {
+        throw new TypeError( 'Array.prototype.reduce ' + 
+          'called on null or undefined' );
+      }
+      if (typeof callback !== 'function') {
+        throw new TypeError( callback +
+          ' is not a function');
+      }
+
+      // 1. Let O be ? ToObject(this value).
+      var o = Object(this);
+
+      // 2. Let len be ? ToLength(? Get(O, "length")).
+      var len = o.length >>> 0; 
+
+      // Steps 3, 4, 5, 6, 7      
+      var k = 0; 
+      var value;
+
+      if (arguments.length >= 2) {
+        value = arguments[1];
+      } else {
+        while (k < len && !(k in o)) {
+          k++; 
+        }
+
+        // 3. If len is 0 and initialValue is not present,
+        //    throw a TypeError exception.
+        if (k >= len) {
+          throw new TypeError( 'Reduce of empty array ' +
+            'with no initial value' );
+        }
+        value = o[k++];
+      }
+
+      // 8. Repeat, while k < len
+      while (k < len) {
+        // a. Let Pk be ! ToString(k).
+        // b. Let kPresent be ? HasProperty(O, Pk).
+        // c. If kPresent is true, then
+        //    i.  Let kValue be ? Get(O, Pk).
+        //    ii. Let accumulator be ? Call(
+        //          callbackfn, undefined,
+        //          « accumulator, kValue, k, O »).
+        if (k in o) {
+          value = callback(value, o[k], k, o);
+        }
+
+        // d. Increase k by 1.      
+        k++;
+      }
+
+      // 9. Return accumulator.
+      return value;
+    }
+  });
+}
+
+If you need to support truly obsolete JavaScript engines that don't support Object.defineProperty(), it's best not to polyfill Array.prototype methods at all, as you can't make them non-enumerable.
+Specifications
+Specification 	Status 	Comment
+ECMAScript 5.1 (ECMA-262)
+The definition of 'Array.prototype.reduce()' in that specification. 	Standard 	Initial definition. Implemented in JavaScript 1.8.
+ECMAScript 2015 (6th Edition, ECMA-262)
+The definition of 'Array.prototype.reduce()' in that specification. 	Standard 	
+ECMAScript Latest Draft (ECMA-262)
+The definition of 'Array.prototype.reduce()' in that specification. 	Draft 	
+Browser compatibility
+Update compatibility data on GitHub
+	Desktop	Mobile	Server
+	Chrome	Edge	Firefox	Internet Explorer	Opera	Safari	Android webview	Chrome for Android	Firefox for Android	Opera for Android	Safari on iOS	Samsung Internet	Node.js
+reduce	Full support 3	Full support 12	Full support 3	Full support 9	Full support 10.5	Full support 4.1	Full support ≤37	Full support 18	Full support 4	Full support Yes	Full support 4	Full support 1.0	Full support Yes
+Thank you!
+Report sent
+What happens next?
+
+Our team will review your report. Once we verify the information you have supplied we will update this browser compatability table accordingly.
+Can I keep track of my report?
+
+You can join the GitHub repository to see updates and commits for this table data:
+
+https://github.com/mdn/browser-compat-data
+Tell us what’s wrong with this table
+
+Our goal is to provide accurate, real values for all our compatibility data tables. Notifying MDN of inaccurate data or supplying new data pushes us further towards our goal of providing 100% real values to the developer community.
+Thank you for helping.
+What are we missing?
+Legend
+
+Full support  
+    Full support
+
+See also
+
+    Array.prototype.reduceRight()
+
+Metadata
+
+    Востаннє змінено: 15 лип. 2019, помічниками MDN
+
+Пов'язані теми
+
+    Standard built-in objects
+    Array
+    Properties
+        array.length
+        Array.prototype[@@unscopables]
+    Methods
+        Array.from()
+        Array.isArray()
+        Array.observe()
+        Array.of()
+        Array.prototype.concat()
+        Array.prototype.copyWithin()
+        Array.prototype.entries()
+        Array.prototype.every()
+        Array.prototype.fill()
+        Array.prototype.filter()
+        Array.prototype.find()
+        Array.prototype.findIndex()
+        Array.prototype.flat()
+        Array.prototype.flatMap()
+        Array.prototype.forEach()
+        Array.prototype.includes()
+        Array.prototype.indexOf()
+        Array.prototype.join()
+        Array.prototype.keys()
+        Array.prototype.lastIndexOf()
+        Array.prototype.map()
+        Array.prototype.pop()
+        Array.prototype.push()
+        Array.prototype.reduce()
+        Array.prototype.reduceRight()
+        Array.prototype.reverse()
+        Array.prototype.shift()
+        Array.prototype.slice()
+        Array.prototype.some()
+        Array.prototype.sort()
+        Array.prototype.splice()
+        Array.prototype.toLocaleString()
+        Array.prototype.toSource()
+        Array.prototype.toString()
+        Array.prototype.unshift()
+        Array.prototype.values()
+        Array.prototype[@@iterator]()
+        Array.unobserve()
+        get Array[@@species]
+    Inheritance:
+    Function
+    Properties
+        Function.arguments
+        Function.arity
+        Function.caller
+        Function.displayName
+        Function.length
+        Function.name
+        Function.prototype
+    Methods
+        Function.prototype.apply()
+        Function.prototype.bind()
+        Function.prototype.call()
+        Function.prototype.isGenerator()
+        Function.prototype.toSource()
+        Function.prototype.toString()
+    Object
+    Properties
+        Object.prototype.__count__
+        Object.prototype.__noSuchMethod__
+        Object.prototype.__parent__
+        Object.prototype.__proto__
+        Object.prototype.constructor
+    Methods
+        Object.prototype.__defineGetter__()
+        Object.prototype.__defineSetter__()
+        Object.prototype.__lookupGetter__()
+        Object.prototype.__lookupSetter__()
+        Object.prototype.hasOwnProperty()
+        Object.prototype.isPrototypeOf()
+        Object.prototype.propertyIsEnumerable()
+        Object.prototype.toLocaleString()
+        Object.prototype.toSource()
+        Object.prototype.toString()
+        Object.prototype.unwatch()
+        Object.prototype.valueOf()
+        Object.prototype.watch()
+        Object.setPrototypeOf()
+
+Вивчайне найкраще з веб-розробки
+
+Отримуйте найкращі свіжі новини від MDN прямо на свою електронну пошту.
+
+В поточний момент розсилка пропонується лише англійською мовою.
+Е-пошта
+Веб-документація MDN
+MDN
+
+    Веб-технології
+    Вивчення веброзробки
+    Про MDN
+    Зворотній зв'язок
+
+Mozilla
+Mozilla
+
+    Про нас
+    Зв’язок з нами
+    Firefox
+
+    УмовиПриватністьФайли cookie
+
+© 2005-2020 Mozilla and individual contributors.
+
+Content is available under these licenses.
+
+      `;
+
+      /* eslint-disable */
+
+      //   const everything = text.split('');
+      //  instead this variable move to the one line
+
+      function isValidCharacter(char) {
+        // if that characters is a-zA-Z0-9, then we want to keep it
+        return char.match(/[a-z0-9]/i);
+      }
+      //   function lowercase(char) {
+      //       return char.toLowerCase();
+      //   }
+      // instead this expression i use  another
+      const lowercase = char => char.toLowerCase();
+
+      function instanceCounter(counts, char) {
+        counts[char]
+          ? // if exist
+            (counts[char] = counts[char] + 1)
+          : // if does not exist
+            (counts[char] = 1);
+        return counts;
+      }
+
+      const result = text
+        .split('') // split each char into an item of an array
+        .filter(isValidCharacter) // for valid char
+        .map(lowercase) // convert every letter to lowercase
+        .reduce(instanceCounter, {});
+
+      function sortByValue(a, b) {
+        return a[1] - b[1];
+      }
+      const sortedResult = Object.entries(result).sort(sortByValue);
+
+      console.log(Object.entries(sortedResult));
+    </script>
+  </body>
+</html>
