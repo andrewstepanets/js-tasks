@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loop for</title>
+  </head>
+  <body>
+    <script>
+      const numbers = [2, 34, 3, 23, 42, 3, 1, 65, 364, 5, 645, 6];
+
+      const name = 'Andrew Steps';
+
+      const andy = {
+        name: 'Andrew',
+        age: 100,
+        cool: true
+      };
+
+      // For
+      //   for (let i = 0; i <= 10; i += 2) {
+      //     console.log(i);
+      //   }
+
+      //   for (let i = 0; i < numbers.length; i++) {
+      //     console.log(numbers[i]);
+      //   }
+
+      // For of
+
+      //   for (const letter of name) {
+      //     console.log(letter);
+      //   }
+
+      //   for (const number of numbers) {
+      //     console.log(number);
+      //   }
+
+      // For in - used for looping over keys of an object
+
+      for (const number in numbers) {
+        console.log(number);
+      }
+
+      for (const prop in andy) {
+        console.log(prop);
+      }
+
+      const baseHumanStats = {
+        feet: 2,
+        arms: 2,
+        eyes: 2,
+        head: 1
+      };
+
+      function Human(name) {
+        this.name = name;
+      }
+
+      Human.prototype = baseHumanStats;
+
+      const andy2 = new Human('tanya');
+      console.log(Object.entries(andy2));
+
+      for (const prop in andy2) {
+        console.log(prop);
+      }
+
+      // while loop
+      let cool = true;
+      let i = 1;
+      while (cool === true) {
+        console.log('Yoou are cool');
+        i++;
+        if (i > 20) {
+          cool = false;
+        }
+      }
+      // do while loop
+
+      //   do {
+
+      //   } while()
+    </script>
+  </body>
+</html>
