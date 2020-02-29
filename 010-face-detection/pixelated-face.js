@@ -17,6 +17,19 @@ async function populateVideo() {
   });
   video.srcObject = stream;
   await video.play();
+
+  // size the canvases to be the same size as the video
+  console.log(video.videoWidth, video.videoHeight);
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  faceCanvas.width = video.videoWidth;
+  faceCanvas.height = video.videoHeight;
 }
 
-populateVideo();
+async function detect() {
+  const faces = await faceDetector.detect(video);
+  console.log(faces);
+}
+
+populateVideo().then(detect);
