@@ -16,14 +16,23 @@ function Gallery(gallery) {
     console.info('Opening Modal...');
     // First check if the modal is already open
     if (modal.matches('.open')) {
-      console.info('Modal already open');
+      //   console.info('Modal already open');
       // stop the function from running
     }
     modal.classList.add('open');
+
+    // Event listeners to be bound when we open the modal window
+    window.addEventListener('keydown', handleKeyUp);
+    nextButton.addEventListener('click', showNextImage);
+    prevButton.addEventListener('click', showPrevImage);
   }
   function closeModal() {
     modal.classList.remove('open');
     // TODO: add event listeners for clicks and keyboard
+
+    window.removeEventListener('keydown', handleKeyUp);
+    nextButton.removeEventListener('click', showNextImage);
+    prevButton.removeEventListener('click', showPrevImage);
   }
 
   function handleClickOutside(e) {
@@ -36,10 +45,18 @@ function Gallery(gallery) {
     if (e.key === 'Escape') closeModal();
   }
 
+  function showNextImage() {
+    showImage(currentImage.nextElementSibling || gallery.firstElementChild);
+  }
+  function showPrevImage() {
+    showImage(currentImage.previousElementSibling || gallery.lastElementChild);
+  }
+
   // el = element
   function showImage(el) {
     if (!el) {
       console.info('No image to show');
+      return;
     }
     // update the modal
     modal.querySelector('img').src = el.src;
@@ -55,7 +72,6 @@ function Gallery(gallery) {
   );
 
   modal.addEventListener('click', handleClickOutside);
-  window.addEventListener('keydown', handleKeyUp);
 }
 
 // use it on the page
