@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New, This, Prototypes and Classes</title>
+  </head>
+  <body>
+    <button class="one">Button1</button>
+    <button class="two">Button2</button>
+    <script>
+      const myDate = new Date('August 11, 2025');
+      console.dir(myDate);
+      console.log(myDate.getFullYear());
+
+      const names = new Array('andy', 'tanya');
+      const andy = new Object({ name: 'andy' });
+      const span = document.createElement('span');
+      console.log(span instanceof Element);
+      console.log(span);
+
+      function Pizza(toppings = [], customer) {
+        console.log('Making a pizza');
+        // save the toppings that were passed in, to this instance
+        // of pizza
+        this.toppings = toppings;
+        this.customer = customer;
+
+        // take this code from https://www.paulirish.com/2009/random-hex-color-code-snippets/
+        this.id = Math.floor(Math.random() * 16777215).toString(16);
+      }
+      const pepperoniPizza = new Pizza(['pepperoni'], 'Andrew Stepanets');
+      const canadianPizza = new Pizza(
+        ['pepperoni', 'mushrooms', 'onion'],
+        'Tanya Bel'
+      );
+
+      //   console.log(pepperoniPizza);
+      //   console.log(pepperoniPizza.constructor);
+      //   console.log(pepperoniPizza instanceof Pizza);
+
+      // working with this
+
+      //   const button1 = document.querySelector('.one');
+      //   const button2 = document.querySelector('.two');
+
+      //   function tellMeAboutTheButton() {
+      //     console.log('outside', this);
+      //     setTimeout(() => {
+      //       console.log('inside', this);
+      //       this.textContent = 'You clicked Me';
+      //     }, 1000);
+      //   }
+      //   button1.addEventListener('click', tellMeAboutTheButton);
+      //   button2.addEventListener('click', tellMeAboutTheButton);
+    </script>
+  </body>
+</html>
