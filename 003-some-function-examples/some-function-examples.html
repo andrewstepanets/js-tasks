@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function examples</title>
+</head>
+
+<body>
+    <script>
+        function isEven(num) {
+            // if (num % 2 === 0) {
+            //     // return true if even
+            //     return true;
+            // } else {
+            //     // return false otherwise    
+            //     return false;
+            // }
+            // instead this big solution we use just one line of code
+            return num % 2 === 0;
+        }
+        isEven(7);
+
+        // function factorial
+
+        function factorial(num) {
+            // define result variable
+            let result = 1;
+            // calculate factorial and store value results
+            for (let i = 2; i <= num; i++) {
+                result *= i;
+            }
+            // return the result variable
+            return result;
+        }
+
+        // kebab to snake
+        function kebabToSnake(str) {
+            // replace all '-' with '_'s
+            // using regular expression
+            const newStr = str.replace(/-/g, '_')
+            // return str
+            return newStr
+        }
+    </script>
+</body>
+
+</html>
