@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array destructuring</title>
+</head>
+
+<body>
+    <script>
+        const dict = {
+            duck: 'quack',
+            dog: 'wuff',
+            mouse: 'squek',
+            hamster: 'squek'
+        };
+        const res = Object.entries(dict)
+            .filter(([, value]) => value === 'squek')
+            .map(([key]) => key);
+
+        console.log(res);
+
+        const shape = {
+            type: 'segment',
+            coordinates: {
+                start: [10, 15],
+                end: [17, 15]
+            }
+        };
+
+        const { coordinates: { start: [startX, startY], end: [endX, endY] } } = shape;
+
+        console.log(startX, startY, endX, endY);
+
+
+    </script>
+</body>
+
+</html>
