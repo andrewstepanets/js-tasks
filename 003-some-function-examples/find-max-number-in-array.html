@@ -18,6 +18,19 @@
 
         console.log(res);
 
+        // using spread operator
+
+        const arr1 = [1, 2, 3];
+        const arr2 = [4, 5, 6];
+        // old format
+        // const resNew = Math.max.apply(Math, arr1);
+
+        // using spread operator
+
+        const resNew = Math.max(41, ...arr1, 5, ...arr2, 10);
+        console.log(resNew);
+
+
     </script>
 </body>
 
