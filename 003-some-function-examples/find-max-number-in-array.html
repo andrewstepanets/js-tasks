@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finding max non even number in array</title>
+</head>
+
+<body>
+    <script>
+        const arr = ['12', '1', '5', '45', '2', '1', '8'];
+
+        const res = arr
+            .map(el => parseInt(el)) // transform string element to number
+            .filter(num => num % 2) // return only noneven elements num%2 == 1, 1 is true
+            .reduce((max, value) => Math.max(max, value), 0);
+
+        console.log(res);
+
+    </script>
+</body>
+
+</html>
